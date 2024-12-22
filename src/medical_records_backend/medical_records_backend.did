@@ -1,0 +1,35 @@
+type UserRole = variant {
+    Patient;
+    Doctor;
+};
+
+type User = record {
+    name: text;
+    roles: vec UserRole;
+    active_role: UserRole;
+    registered_date: nat64;
+};
+
+type MedicalRecord = record {
+    patient_id: principal;
+    doctor_id: principal;
+    diagnosis: text;
+    medication: text;
+    notes: text;
+    created_at: nat64;
+};
+
+service : {
+    register_user: (name: text, role: UserRole) -> (variant { Ok: principal; Err: text });
+    switch_role: (role: UserRole) -> (variant { Ok; Err: text });
+    create_medical_record: (
+        patient_id: principal,
+        diagnosis: text,
+        medication: text,
+        notes: text
+    ) -> (variant { Ok; Err: text });
+    get_medical_records: (patient_id: principal) -> (variant { Ok: vec MedicalRecord; Err: text }) query;
+    get_user_info: (user_id: principal) -> (variant { Ok: record { principal; User }; Err: text }) query;
+    get_all_users: () -> (vec record { principal; User }) query;
+    get_active_role: () -> (variant { Ok: UserRole; Err: text }) query;
+}

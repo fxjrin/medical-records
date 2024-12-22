@@ -1,0 +1,16 @@
+{
+  "canisters": {
+    "medical_records_backend": {
+      "candid": "src/medical_records_backend/medical_records_backend.did",
+      "package": "medical_records_backend",
+      "type": "rust"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "version": 1
+}
